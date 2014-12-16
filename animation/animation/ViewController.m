@@ -10,7 +10,6 @@
 
 @interface ViewController ()
 @property (nonatomic) UIView *cardView;
-@property (nonatomic) BOOL _holding;
 @end
 
 @implementation ViewController
@@ -27,7 +26,6 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    self._holding = YES;
     CALayer *cardLayer = self.cardView.layer;
     CGPoint layerCenter = CGPointMake(self.cardView.frame.size.width / 2,
                                  self.cardView.frame.size.height/ 2);
@@ -41,12 +39,11 @@
 
     // init animations and start x-move animation
     [cardLayer removeAllAnimations];
-    [cardLayer addAnimation:animation forKey:@"card_animation1"];
+    [cardLayer addAnimation:animation forKey:@"x_move_animation"];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    self._holding = NO;
     CALayer *cardLayer = self.cardView.layer;
     CGPoint layerCenter = CGPointMake(self.cardView.frame.size.width / 2,
                                       self.cardView.frame.size.height/ 2);
@@ -62,8 +59,8 @@
     animation.fillMode = kCAFillModeForwards;
     
     // stop x-move animation and start y-move animation
-    [cardLayer removeAnimationForKey:@"card_animation1"];
-    [cardLayer addAnimation:animation forKey:@"card_animation2"];
+    [cardLayer removeAnimationForKey:@"x_move_animation"];
+    [cardLayer addAnimation:animation forKey:@"y_move_animation"];
 
 }
 
